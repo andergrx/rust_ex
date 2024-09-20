@@ -9,8 +9,10 @@ struct MyMap<K,V> {
     bmap: BTreeMap<K,V>,
 }
 
-impl<K:std::cmp::Eq + std::fmt::Display + std::hash::Hash + std::cmp::Ord + Copy,
-     V:std::fmt::Display + Copy> MyMap<K,V> {
+impl<K, V> MyMap<K,V>
+where K: std::cmp::Eq + std::fmt::Display + std::hash::Hash + std::cmp::Ord + Copy,
+      V: std::fmt::Display + Copy,
+{
 
 //impl<K,V> MyMap<K,V>
     fn print_hmap(&self) {
@@ -130,7 +132,7 @@ fn main() {
     tmap.insert(7,4.435436);
     tmap.insert(13,43242.11129);
     tmap.insert(15,-2342897.778787);
-    
+
     tmap.print_hmap();
     tmap.print_bmap();
     
@@ -142,8 +144,10 @@ fn main() {
     println!("brave: {}, {}, {}", brave, b2, b3);
 }
 
-fn mprint<K:std::cmp::Eq + std::fmt::Display + std::hash::Hash,
-          V:std::fmt::Display>(map: &HashMap<K,V>) {
+fn mprint<K, V>(map: &HashMap<K,V>)
+where K: std::cmp::Eq + std::fmt::Display + std::hash::Hash,
+      V: std::fmt::Display,
+{
           
     for key in map.keys() {
         println!("{}: {}", key, map[key]);

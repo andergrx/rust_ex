@@ -78,17 +78,20 @@ fn main() {
     
     x = &mut y;
     *x += 1;
-    //y += 1; --cannnot do this
+    //y += 1; //cannnot do this
     println!("X: {:?}", x);
 
-    let get_evens = | input: &Vec<u32> | -> Vec<u32> {
+    let get_evens = | input: Vec<u32> | -> Vec<u32> {
 
-        input.clone().into_iter().filter(|x| x%2 == 0).collect()
+        println!("input addr: {:p}, {:p}", &input, &input[0]);
+        input.into_iter().filter(|x| x%2 == 0).collect()
     };
 
     let tv: Vec<u32> = vec![11,22,33,44,55,66,77,88];
-    let evens = get_evens(&tv);
+    println!("tv addr: {:p}, {:p}", &tv, &tv[0]);
+    let evens = get_evens(tv);
     println!("Evens vec: {:?}", evens);
+    println!("evens addr: {:p}, {:p}", &evens, &evens[0]);
 
     let mut ptr: *mut Vec<u32> = std::ptr::null_mut();
     ptr = &mut Vec::<u32>::new();
@@ -96,6 +99,28 @@ fn main() {
         (*ptr).push(45);
         println!("ptr: {:?}", *ptr);
     };
+
+    let signature = {
+        // Combine this data together and SCALE encode it:
+        let a = (1, 4.5, "hello");
+        let b = String::from("Gabe");
+
+        // If payload is longer than 256 bytes, we hash it and sign the hash instead:
+        if a.1  > 10. {
+            println!("if");
+        } else {
+            println!("else");
+        }
+    };
+
+    let thing = {
+        let a = 1;
+        let b = 4;
+        println!("I'm gonna return 3");
+        3
+    };
+
+    println!("Thing {}", thing);
 
 }
 
