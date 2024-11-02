@@ -1,4 +1,6 @@
 use core::fmt;
+use std::time::Instant;
+
 
 fn main() {
     let a = 5;
@@ -75,19 +77,18 @@ fn main() {
 
     let mut x: &mut u32;
     let mut y: u32 = 42;
-    
+
     x = &mut y;
     *x += 1;
     //y += 1; //cannnot do this
     println!("X: {:?}", x);
 
-    let get_evens = | input: Vec<u32> | -> Vec<u32> {
-
+    let get_evens = |input: Vec<u32>| -> Vec<u32> {
         println!("input addr: {:p}, {:p}", &input, &input[0]);
-        input.into_iter().filter(|x| x%2 == 0).collect()
+        input.into_iter().filter(|x| x % 2 == 0).collect()
     };
 
-    let tv: Vec<u32> = vec![11,22,33,44,55,66,77,88];
+    let tv: Vec<u32> = vec![11, 22, 33, 44, 55, 66, 77, 88];
     println!("tv addr: {:p}, {:p}", &tv, &tv[0]);
     let evens = get_evens(tv);
     println!("Evens vec: {:?}", evens);
@@ -106,7 +107,7 @@ fn main() {
         let b = String::from("Gabe");
 
         // If payload is longer than 256 bytes, we hash it and sign the hash instead:
-        if a.1  > 10. {
+        if a.1 > 10. {
             println!("if");
         } else {
             println!("else");
@@ -121,6 +122,39 @@ fn main() {
     };
 
     println!("Thing {}", thing);
+
+    let _ = (1..5)
+        .into_iter()
+        .map(|x| print!(" x: {},", x))
+        .collect::<Vec<_>>();
+    println!();
+    let t = (1i32..25)
+        .into_iter()
+        .map(|x| (x * 2, x * 3))
+        .collect::<Vec<_>>();
+    //println!("t: {:?}", t);
+
+    let current = Instant::now();
+    
+    let mut y = 0;
+    (0..500000).into_iter().for_each(|i| y = i*10/9);
+    
+    let duration = current.elapsed();
+    println!("Time elapsed in iter is: {:?}", duration);
+
+
+    let current = Instant::now();
+    
+    let mut y;
+    for i in 0..500000 {
+        y = i*10/9;
+    }
+    
+    let duration = current.elapsed();
+
+    
+    println!("Time elapsed in for is: {:?}", duration);
+
 
 }
 

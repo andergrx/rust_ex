@@ -5,17 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch",
             "type": "lldb",
             "request": "launch",
-            "name": "Cargo launch",
-            "cargo": {
-                "args": [
-                    "build",
-                    "--lib"
-                ]
-            },
-            "args": []
-        },
-
+            "program": "${workspaceFolder}/concurrency/target/debug/concurrency",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false
+        }
     ]
 }
