@@ -1,5 +1,5 @@
 [package]
-name = "dx-gui"
+name = "test-tail"
 version = "0.1.0"
 authors = ["Gabriel Anderson <andergrx@gmail.com>"]
 edition = "2021"
@@ -8,9 +8,7 @@ edition = "2021"
 
 [dependencies]
 
-dioxus = { version = "0.5", features = ["desktop", "router", "web"] }
+dioxus = { version = "0.5", features = ["desktop"] }
 
 # Debug
 dioxus-logger = "0.5.1"
-reqwest = {version = "0.12.9", features = ["json"] }
-serde = { version = "1.0.214", features = ["std", "derive", "serde_derive"] }
