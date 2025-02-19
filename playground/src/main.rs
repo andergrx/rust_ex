@@ -129,10 +129,10 @@ fn main() {
         .collect::<Vec<_>>();
     println!();
     let t = (1i32..25)
-        .into_iter()
+        //.into_iter()
         .map(|x| (x * 2, x * 3))
         .collect::<Vec<_>>();
-    //println!("t: {:?}", t);
+    println!("t: {t:?}");
 
     let current = Instant::now();
     
@@ -154,6 +154,9 @@ fn main() {
 
     
     println!("Time elapsed in for is: {:?}", duration);
+
+    let this = 123124;
+    println!("this: {this:}");
 
 
 }

@@ -8,7 +8,10 @@ async fn main() -> Result<()> {
         let task = Task::new(i);
 
         handles.push(tokio::spawn(async move {
-            task.execute().await.unwrap();
+            let task = task.execute().await;
+            if let Err(err) = task {
+                println!("Task Error: {err}");
+            }
         }));
     }
 

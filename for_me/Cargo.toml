@@ -1,0 +1,10 @@
+[package]
+name = "for_me"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono = "0.4.38"
+reqwest = "0.12.9"
+serde_json = "1.0.133"
+tokio = { version = "1.41.0", features = ["sync", "rt", "rt-multi-thread", "macros", "time"] }

@@ -35,7 +35,7 @@ impl Task {
         let adj = (self.id - 1) * WORKERS;
         let mut join = vec![];
 
-        (1..=WORKERS).into_iter().for_each(|id| {
+        (1..=WORKERS).for_each(|id| {
             let mut worker = Worker::new(id + adj, self.tx.subscribe(), self.end.subscribe());
             join.push(tokio::spawn(async move {
                 worker.execute().await;

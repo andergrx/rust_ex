@@ -17,11 +17,10 @@ pub enum Route {
     Dog {},
 }
 
-#[derive(PartialEq, Clone, Default)]
+#[derive(PartialEq, Clone, Default, Debug)]
 struct AppData {
     output: String,
     count: u32,
-    //onclick: EventHandler<MouseEvent>,
 }
 
 // const DIV_STYLE: &str = r#"div {{ color: #26b72b; background: #222222;}} "#;
@@ -29,7 +28,6 @@ struct AppData {
 #[component]
 pub fn App() -> Element {
     rsx! {
-        link { rel: "stylesheet", href: "./assets/main.css" }
         Router::<Route> {}
     }
 }
@@ -44,6 +42,7 @@ fn Home() -> Element {
 
             LeftSide { data: app_data }
             RightSide { data: app_data }
+            Menu {}
         }
     }
 }
@@ -113,7 +112,6 @@ fn process_button(event: Event<MouseData>, mut data: Signal<AppData>) {
         .push_str(format!("Count: {} ", cnt).as_str());
 }
 
-
 fn build_list(event: Event<MouseData>, mut data: Signal<AppData>) {
     info!("Clicked! Event: {event:?}");
 
@@ -121,10 +119,7 @@ fn build_list(event: Event<MouseData>, mut data: Signal<AppData>) {
         .map(|x| format!("List elem {x}"))
         .collect::<Vec<_>>();
 
-    data.write().output.push_str(
-        format!("{:?}", list).as_str()
-    );
-
+    data.write().output.push_str(format!("{:?}", list).as_str());
 }
 
 fn clear_output(event: Event<MouseData>, mut data: Signal<AppData>) {
@@ -138,14 +133,54 @@ fn RightSide(data: Signal<AppData>) -> Element {
     rsx! {
         div {
             class: "right_side",
-            style {
-                r#"textarea {{background-color:black}}"#
-            }
 
             span {
                 class: "output",
                 "{data.read().output}"
             }
+        }
+    }
+}
+
+#[component]
+fn Menu() -> Element {
+    let mut is_active = use_signal(|| false);
+
+    rsx! {
+
+        if *is_active.read_unchecked()  {
+            nav {
+                ul {
+                    class: "menu",
+                    onmouseout: move |_| {
+                        *is_active.write() = false;
+                    },
+
+                    MenuItem { name: "Home", is_active: is_active}
+                    MenuItem { name: "About", is_active: is_active}
+                    MenuItem { name: "Contact", is_active: is_active}
+                }
+            }
+        } else {
+            a {
+                class: "menu",
+                onmouseover: move |_| {
+                    *is_active.write() = true;
+                },
+                "Menu"
+            }
+        }
+    }
+}
+
+#[component]
+fn MenuItem(name: &'static str, is_active: Signal<bool>) -> Element {
+    rsx! {
+        li { 
+            onmouseover: move |_| {
+                *is_active.write() = true;
+            }, 
+            "{name}"
         }
     }
 }
@@ -170,7 +205,7 @@ fn Hello() -> Element {
 
             "Ello Mate!"
         }
-    
+
         div {
             class: "center",
 
@@ -198,8 +233,7 @@ struct ApiResponse {
 fn get_doge(event: Event<MouseData>) {
     info!("Clicked! Event: {event:?}");
 
-    Route::Dog{};
-
+    Route::Dog {};
 }
 
 #[component]
@@ -235,7 +269,6 @@ fn Dog() -> Element {
             div { class: "status", "Loading dogs..." }
         },
     }
-
 }
 
 fn main() {
@@ -243,5 +276,7 @@ fn main() {
     dioxus_logger::init(Level::INFO).expect("failed to init logger");
     info!("starting app");
 
-    dioxus::launch(App);
+    let cfg = dioxus::desktop::Config::new()
+        .with_custom_head(r#"<link rel="stylesheet" href="/assets/main.css">"#.to_string());
+    LaunchBuilder::desktop().with_cfg(cfg).launch(App);
 }

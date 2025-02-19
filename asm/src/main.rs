@@ -1,5 +1,5 @@
-use std::rc::Rc;
-use std::cell::RefCell;
+// use std::rc::Rc;
+// use std::cell::RefCell;
 
 fn main() -> () {
     
@@ -20,15 +20,19 @@ fn main() -> () {
     // println!("refc: {:?}", b1);
     // println!("refc: {:?}", b2);
 
-    let a = Rc::new(RefCell::new(42));
-    let b = a.clone();
-    *b.borrow_mut() += 1;
-    let c = b.clone();
-    *c.borrow_mut() += 1;
+    // let a = Rc::new(RefCell::new(42));
+    // let b = a.clone();
+    // *b.borrow_mut() += 1;
+    // let c = b.clone();
+    // *c.borrow_mut() += 1;
     //let a = 42;
     // let a = Box::new(42);
     // let b = Box::clone(&a);
-    println!("a: {:?}, b: {}", a, b.borrow());
-    println!("{:p}, {:p}, {:p}, {:p}", &a, &*a, &b, &*b);
+    // println!("a: {:?}, b: {}", a, b.borrow());
+    // println!("{:p}, {:p}, {:p}, {:p}", &a, &*a, &b, &*b);
+
+    let a = 42;
+    let b = 123;
+    println!("a + b: {}", a + b);
 
 }

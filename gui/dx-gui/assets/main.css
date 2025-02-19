@@ -64,6 +64,7 @@ div {
 .output {
     background-color: #0c0b0b;
     border: 1px solid #EEEEEE;
+    border-radius: 15px;
     box-shadow: 1px 1px 0 #DDDDDD;
     color: #ffffff;
     display: block;
@@ -71,6 +72,8 @@ div {
     font-size: 14px;
     line-height: 20px;
     margin: 2% auto;
+    padding-left: 10px;
+    padding-rigt: 10px;
     /*padding: 11px 20px 0 70px;*/
 
     resize: none;
@@ -164,4 +167,34 @@ div {
     -o-box-shadow: 0 0 1px #eee;
     -ms-box-shadow: 0 0 1px #eee;
     box-shadow: 0 0 1px #eee;
+}
+
+.menu  {
+    color: white;
+    list-style-type: none;
+    margin: 30px;
+    padding: 0;
+    height: 50px;
+    /* background-color: #333; */
+}
+
+.menu li a {
+    float: left;
+    padding-bottom: 10px;
+    width: 100%;
+} 
+
+.menu_start {
+    color: white;
+    list-style-type: none;
+    margin: 10px;
+    float: left;
+    padding-top: 20px;
+    padding-left: 15px;
+    width: 40px; 
+    height: 20px;  
+}
+
+.menu:hover li:hover {
+    background-color: #cf6e1f;
 }
